@@ -9,6 +9,7 @@ import pe.edu.cibertec.web_backoffice_lym.repository.FilmRepository;
 import pe.edu.cibertec.web_backoffice_lym.service.MaintenanceService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,4 +55,27 @@ public class MaintenanceServiceImpl implements MaintenanceService {
                 film.getLastUpdate())
         ).orElse(null);
     }
+
+    @Override
+    public Boolean updateFilm(FilmDetailsDto filmDetailsDto) {
+        Optional<Film> optional = filmRepository.findById(filmDetailsDto.filmId());
+        return optional.map(
+                film -> {
+                    film.setTitle(filmDetailsDto.title());
+                    film.setDescription(filmDetailsDto.description());
+                    film.setReleaseYear(filmDetailsDto.releaseYear());
+                    film.setRentalDuration(filmDetailsDto.rentalDuration());
+                    film.setRentalRate(filmDetailsDto.rentalRate());
+                    film.setLength(filmDetailsDto.length());
+                    film.setReplacementCost(filmDetailsDto.replacementCost());
+                    film.setRating(filmDetailsDto.rating());
+                    film.setSpecialFeatures(filmDetailsDto.specialFeatures());
+                    film.setLastUpdate(new Date());
+                    filmRepository.save(film);
+                    return true;
+                }
+        ).orElse(false);
+    }
+
+
 }

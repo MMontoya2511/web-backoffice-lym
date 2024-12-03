@@ -25,11 +25,22 @@
         </tr>
 
         <tr th:each="film : ${films}">
-            <td th:text="${film.filmId()}"></td>
+            <td>
+                <a th:href="@{/maintenance/detail/{id}(id=${film.filmId()})}" th:text="${film.filmId()}"></a>
+            </td>
             <td th:text="${film.title()}"></td>
             <td th:text="${film.language()}"></td>
             <td th:text="${film.rentalDuration()}"></td>
             <td th:text="${film.rentalRate()}"></td>
+
+            <td>
+                <a th:href="@{/maintenance/edit/{id}(id=${film.filmId()})}">Editar</a>
+            </td>
+
+            <td>
+                <a href="#">Eliminar</a>
+            </td>
+
         </tr>
 
     </table>
